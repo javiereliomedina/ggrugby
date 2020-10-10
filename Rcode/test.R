@@ -1,4 +1,4 @@
-
+library(tidyverse)
 
 shots_data <- tibble(x = c(90, 85, 82, 78, 83),
                          y = c(43, 40, 52, 56, 44))

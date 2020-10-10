@@ -19,8 +19,8 @@
 #'
 #' @export
 
-  annotate_pitch <- function(colour   = "dimgray",
-                             fill     = "white",
+  annotate_pitch <- function(colour   = "white",
+                             fill     = "#7fc47f",
                              limits   = TRUE,
                              dimensions = pitch_worldrugby) {
     
@@ -29,8 +29,8 @@
     #       elements (e.g. a custom goal type)
     marking_layers <- unlist(list(
       annotate_base_pitch(colour, fill, dimensions),
-      # annotate_goal_line(colour, fill, dimensions),
-      # annotate_six_yard_box(colour, fill, dimensions),
+      annotate_touchlines(colour, fill, dimensions),
+      annotate_inside_lines(colour, fill, dimensions),
       annotate_goal(colour, fill, dimensions)
     ), recursive = FALSE)
     
@@ -60,7 +60,7 @@
     midpoint <- pitch_center(spec)
     
     list(
-      # Fiels with in-goal
+      # Field with in-goal
       ggplot2::annotate(
         geom = "rect",
         xmin = spec$origin_x,
@@ -72,15 +72,17 @@
       ),
       # Centre spot
       ggplot2::annotate(
-        geom = "point",
-        x = midpoint$x,
+        geom = "segment",
+        x = midpoint$x - 0.5,
+        xend = midpoint$x + 0.5,
         y = midpoint$y,
+        yend = midpoint$y,
         colour = colour,
         fill = fill
       ),
       # Halfway line
       ggplot2::annotate(
-        "segment",
+        geom = "segment",
         x = midpoint$x,
         xend = midpoint$x,
         y = spec$origin_y,
@@ -89,7 +91,7 @@
       ),
       # Goal line 1
       ggplot2::annotate(
-        "segment",
+        geom = "segment",
         x = spec$goal_line,
         xend = spec$goal_line,
         y = spec$origin_y,
@@ -98,7 +100,7 @@
       ),
       # Goal line 2
       ggplot2::annotate(
-        "segment",
+        geom = "segment",
         x = spec$length - spec$goal_line,
         xend = spec$length - spec$goal_line,
         y = spec$origin_y,
@@ -107,7 +109,7 @@
       ),
       # 22-meters line 1
       ggplot2::annotate(
-        "segment",
+        geom = "segment",
         x = spec$line_22m,
         xend = spec$line_22m,
         y = spec$origin_y,
@@ -116,7 +118,7 @@
       ),
       # 22-meters line 2
       ggplot2::annotate(
-        "segment",
+        geom = "segment",
         x = spec$length - spec$line_22m,
         xend = spec$length - spec$line_22m,
         y = spec$origin_y,
@@ -126,44 +128,180 @@
     )
   }
   
-  
-  annotate_goal_line <- function(colour, fill, spec) {
+  annotate_inside_lines <- function(colour, fill, spec) {
     midpoint <- pitch_center(spec)
     
     list(
+      # 5-meters line 1
       ggplot2::annotate(
-        geom = "line",
-        xmin = spec$origin_x + spec$length - spec$penalty_box_length,
-        xmax = spec$origin_x + spec$length,
-        ymin = midpoint$y - spec$goal_line/2,
-        ymax = midpoint$y + spec$goal_line/2,
-        colour = colour,
-        fill = fill
+        geom = "segment",
+        x = rep(spec$goal_line + 5, 6),
+        xend = rep(spec$goal_line + 5, 6),
+        y = c(spec$origin_y + 4,
+              spec$origin_y + 14,
+              midpoint$y - 4,
+              midpoint$y + 4,
+              spec$width - 4,
+              spec$width - 14),
+        yend = c(spec$origin_y + 6,
+                 spec$origin_y + 16,
+                 midpoint$y - 6,
+                 midpoint$y + 6,
+                 spec$width - 6,
+                 spec$width - 16),
+        colour = colour
+      ),
+      # 5-meters line 2
+      ggplot2::annotate(
+        geom = "segment",
+        x = rep(spec$length - spec$goal_line - 5, 6),
+        xend = rep(spec$length - spec$goal_line - 5, 6),
+        y = c(spec$origin_y + 4,
+              spec$origin_y + 14,
+              midpoint$y - 4,
+              midpoint$y + 4,
+              spec$width - 4,
+              spec$width - 14),
+        yend = c(spec$origin_y + 6,
+                 spec$origin_y + 16,
+                 midpoint$y - 6,
+                 midpoint$y + 6,
+                 spec$width - 6,
+                 spec$width - 16),
+        colour = colour
+      ),
+      # 10-meters line 1
+      ggplot2::annotate(
+        geom = "segment",
+        x = rep(midpoint$x - 10, 6),
+        xend = rep(midpoint$x - 10, 6),
+        y = c(spec$origin_y + 4,
+              spec$origin_y + 14,
+              midpoint$y - 4,
+              midpoint$y + 4,
+              spec$width - 4,
+              spec$width - 14),
+        yend = c(spec$origin_y + 6,
+                 spec$origin_y + 16,
+                 midpoint$y - 6,
+                 midpoint$y + 6,
+                 spec$width - 6,
+                 spec$width - 16),
+        colour = colour
+      ),
+      # 10-meters line 2
+      ggplot2::annotate(
+        geom = "segment",
+        x = rep(midpoint$x + 10, 6),
+        xend = rep(midpoint$x + 10, 6),
+        y = c(spec$origin_y + 4,
+              spec$origin_y + 14,
+              midpoint$y - 4,
+              midpoint$y + 4,
+              spec$width - 4,
+              spec$width - 14),
+        yend = c(spec$origin_y + 6,
+                 spec$origin_y + 16,
+                 midpoint$y - 6,
+                 midpoint$y + 6,
+                 spec$width - 6,
+                 spec$width - 16),
+        colour = colour
       )
+      
     )
   }
   
-  annotate_six_yard_box <- function(colour, fill, spec) {
+  
+  annotate_touchlines <- function(colour, fill, spec) {
     midpoint <- pitch_center(spec)
     
     list(
+      # 5-meters line 1
       ggplot2::annotate(
-        geom = "rect",
-        xmin = spec$origin_x + spec$length - spec$six_yard_box_length,
-        xmax = spec$origin_x + spec$length,
-        ymin = midpoint$y - spec$six_yard_box_width/2,
-        ymax = midpoint$y + spec$six_yard_box_width/2,
-        colour = colour,
-        fill = fill
+        geom = "segment",
+        x = c(spec$goal_line + 5,
+              spec$goal_line + 21,
+              midpoint$x - 9,
+              midpoint$x - 1,
+              midpoint$x + 9,
+              spec$length - spec$goal_line - 21,
+              spec$length - spec$goal_line - 5),
+        xend = c(spec$goal_line + 7,
+                 spec$goal_line + 23,
+                 midpoint$x - 11,
+                 midpoint$x + 1,
+                 midpoint$x + 11,
+                 spec$length - spec$goal_line - 23,
+                 spec$length - spec$goal_line - 7),
+        
+        y = rep(spec$origin_y + 5, 7),
+        yend = rep(spec$origin_y + 5, 7),
+        colour = colour
       ),
+      # 15-meters line 1
       ggplot2::annotate(
-        geom = "rect",
-        xmin = spec$origin_x,
-        xmax = spec$origin_x + spec$six_yard_box_length,
-        ymin = midpoint$y - spec$six_yard_box_width/2,
-        ymax = midpoint$y + spec$six_yard_box_width/2,
-        colour = colour,
-        fill = fill
+        geom = "segment",
+        x = c(spec$goal_line + 5,
+              spec$goal_line + 21,
+              midpoint$x - 9,
+              midpoint$x - 1,
+              midpoint$x + 9,
+              spec$length - spec$goal_line - 21,
+              spec$length - spec$goal_line - 5),
+        xend = c(spec$goal_line + 7,
+                 spec$goal_line + 23,
+                 midpoint$x - 11,
+                 midpoint$x + 1,
+                 midpoint$x + 11,
+                 spec$length - spec$goal_line - 23,
+                 spec$length - spec$goal_line - 7),
+        
+        y = rep(spec$origin_y + 15, 7),
+        yend = rep(spec$origin_y + 15, 7),
+        colour = colour
+      ),
+      # 5-meters line 2
+      ggplot2::annotate(
+        geom = "segment",
+        x = c(spec$goal_line + 5,
+              spec$goal_line + 21,
+              midpoint$x - 9,
+              midpoint$x - 1,
+              midpoint$x + 9,
+              spec$length - spec$goal_line - 21,
+              spec$length - spec$goal_line - 5),
+        xend = c(spec$goal_line + 7,
+                 spec$goal_line + 23,
+                 midpoint$x - 11,
+                 midpoint$x + 1,
+                 midpoint$x + 11,
+                 spec$length - spec$goal_line - 23,
+                 spec$length - spec$goal_line - 7),
+        y = rep(spec$origin_y + spec$width - 5, 7),
+        yend = rep(spec$origin_y + spec$width - 5, 7),
+        colour = colour
+      ),
+      # 15-meters line 2
+      ggplot2::annotate(
+        geom = "segment",
+        x = c(spec$goal_line + 5,
+              spec$goal_line + 21,
+              midpoint$x - 9,
+              midpoint$x - 1,
+              midpoint$x + 9,
+              spec$length - spec$goal_line - 21,
+              spec$length - spec$goal_line - 5),
+        xend = c(spec$goal_line + 7,
+                 spec$goal_line + 23,
+                 midpoint$x - 11,
+                 midpoint$x + 1,
+                 midpoint$x + 11,
+                 spec$length - spec$goal_line - 23,
+                 spec$length - spec$goal_line - 7),
+        y = rep(spec$origin_y + spec$width - 15, 7),
+        yend = rep(spec$origin_y + spec$width - 15, 7),
+        colour = colour
       )
     )
   }
@@ -231,8 +369,7 @@
     )
   }
   
-  # Helper functions
-  
+# Helper functions
   pitch_center <- function(spec) {
     list(x = spec$origin_x + spec$length/2,
          y = spec$origin_y + spec$width/2)
