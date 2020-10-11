@@ -183,7 +183,6 @@ annotate_inside_lines <- function(colour, fill, spec) {
   )
 }
 
-
 annotate_touchlines <- function(colour, fill, spec) {
   midpoint <- pitch_center(spec)
   
@@ -205,7 +204,6 @@ annotate_touchlines <- function(colour, fill, spec) {
                midpoint$x + 11,
                spec$length - spec$goal_line - 23,
                spec$length - spec$goal_line - 7),
-      
       y = rep(spec$origin_y + 5, 7),
       yend = rep(spec$origin_y + 5, 7),
       colour = colour
@@ -284,56 +282,30 @@ annotate_goal <- function(colour, fill, spec) {
   list(
     ggplot2::annotate(
       geom = "segment", 
-      x = spec$length - spec$goal_line,
-      xend = spec$length - spec$goal_line + goal_depth,
-      y = midpoint$y - spec$goal_width/2,
-      yend = midpoint$y + spec$goal_width/2,
-      colour = colour,
-      fill = fill
-    ),
-    ggplot2::annotate(
-      geom = "segment", 
-      x = spec$length - spec$goal_line,
-      xend = spec$length - spec$goal_line + goal_depth,
-      y = midpoint$y - spec$goal_width/2 + spec$goal_width,
-      yend = midpoint$y + spec$goal_width/2 + spec$goal_width,
-      colour = colour,
-      fill = fill
-    ),
-    ggplot2::annotate(
-      geom = "segment", 
-      x = spec$length - spec$goal_line + goal_depth/2,
-      xend = spec$length - spec$goal_line + goal_depth/2,
-      y = midpoint$y - spec$goal_width/2 + spec$goal_width/2,
-      yend = midpoint$y + spec$goal_width/2 + spec$goal_width/2,
-      colour = colour,
-      fill = fill
-    ),
-    
-    ggplot2::annotate(
-      geom = "segment", 
-      x = spec$goal_line - goal_depth,
-      xend = spec$goal_line,
-      yend = midpoint$y - spec$goal_width/2,
-      y = midpoint$y + spec$goal_width/2,
-      colour = colour,
-      fill = fill
-    ),
-    ggplot2::annotate(
-      geom = "segment", 
-      x = spec$goal_line - goal_depth,
-      xend = spec$goal_line,
-      yend = midpoint$y - spec$goal_width/2 + spec$goal_width,
-      y = midpoint$y + spec$goal_width/2 + spec$goal_width,
-      colour = colour,
-      fill = fill
-    ),
-    ggplot2::annotate(
-      geom = "segment", 
-      xend = spec$goal_line - goal_depth/2,
-      x = spec$goal_line - goal_depth/2,
-      yend = midpoint$y - spec$goal_width/2 + spec$goal_width/2,
-      y = midpoint$y + spec$goal_width/2 + spec$goal_width/2,
+      x = c(spec$length - spec$goal_line,
+            spec$length - spec$goal_line,
+            spec$length - spec$goal_line + goal_depth/2,
+            spec$goal_line - goal_depth,
+            spec$goal_line - goal_depth,
+            spec$goal_line - goal_depth/2),
+      xend = c(spec$length - spec$goal_line + goal_depth,
+               spec$length - spec$goal_line + goal_depth,
+               spec$length - spec$goal_line + goal_depth/2,
+               spec$goal_line,
+               spec$goal_line,
+               spec$goal_line - goal_depth/2),
+      y = c(midpoint$y - spec$goal_width/2,
+            midpoint$y - spec$goal_width/2 + spec$goal_width,
+            midpoint$y - spec$goal_width/2 + spec$goal_width/2,
+            midpoint$y + spec$goal_width/2,
+            midpoint$y + spec$goal_width/2 + spec$goal_width,
+            midpoint$y + spec$goal_width/2 + spec$goal_width/2),
+      yend = c(midpoint$y + spec$goal_width/2,
+               midpoint$y + spec$goal_width/2 + spec$goal_width,
+               midpoint$y + spec$goal_width/2 + spec$goal_width/2,
+               midpoint$y - spec$goal_width/2,
+               midpoint$y - spec$goal_width/2 + spec$goal_width,
+               midpoint$y - spec$goal_width/2 + spec$goal_width/2),
       colour = colour,
       fill = fill
     )
