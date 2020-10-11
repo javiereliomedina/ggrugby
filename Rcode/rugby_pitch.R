@@ -26,31 +26,14 @@ rugby_pitch <- function(colour   = "white",
   
   # NOTE: could parameterise the whole function by the list of layer-creation
   #       functions it uses. We could then open up the API for user-defined pitch
-  #       elements (e.g. a custom goal type)
+  #       elements 
   marking_layers <- unlist(list(
     annotate_base_pitch(colour, fill, dimensions),
     annotate_touchlines(colour, fill, dimensions),
     annotate_inside_lines(colour, fill, dimensions),
     annotate_goal(colour, fill, dimensions)
   ), recursive = FALSE)
-  
-  if (!limits) {
-    return(marking_layers)
   }
-  
-  # Leave room for full pitch + goals and direction_label by default
-  limit_layers <- list(
-    ggplot2::xlim(dimensions$origin_x - 3,
-                  dimensions$origin_x + dimensions$length + 3),
-    ggplot2::ylim(dimensions$origin_y - 5,
-                  dimensions$origin_y + dimensions$width + 3)
-  )
-  
-  append(
-    marking_layers,
-    limit_layers,
-  )
-}
 
 # Pitch components -------------------------------------------------------------
 # Add markings for parts of a rugby pitch.
