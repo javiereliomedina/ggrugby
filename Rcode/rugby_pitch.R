@@ -53,20 +53,37 @@ rugby_pitch <- function(colour   = "white",
 }
 
 # Pitch components -------------------------------------------------------------
-# Add markings for parts of a soccer pitch.
-# NOTE: Should these be exposed for top-level use?
+# Add markings for parts of a rugby pitch.
 
 annotate_base_pitch <- function(colour, fill, spec) {
   midpoint <- pitch_center(spec)
   
   list(
-    # Field with in-goal
+    # Field
     ggplot2::annotate(
       geom = "rect",
       xmin = spec$origin_x,
       xmax = spec$origin_x + spec$length,
       ymin = spec$origin_y,
       ymax = spec$origin_y + spec$width,
+      colour = colour,
+      fill = fill
+    ),
+    # Lines 
+    ggplot2::annotate(
+      geom = "segment",
+      x = c(spec$goal_line,
+            spec$goal_line + 22,
+            midpoint$x,
+            spec$length - spec$goal_line - 22,
+            spec$length - spec$goal_line),
+      xend = c(spec$goal_line,
+               spec$goal_line + 22,
+               midpoint$x,
+               spec$length - spec$goal_line - 22,
+               spec$length - spec$goal_line),
+      y = rep(spec$origin_y, 5),
+      yend = rep(spec$origin_y + spec$width, 5),
       colour = colour,
       fill = fill
     ),
@@ -77,52 +94,6 @@ annotate_base_pitch <- function(colour, fill, spec) {
       xend = midpoint$x + 0.5,
       y = midpoint$y,
       yend = midpoint$y,
-      colour = colour,
-      fill = fill
-    ),
-    # Halfway line
-    ggplot2::annotate(
-      geom = "segment",
-      x = midpoint$x,
-      xend = midpoint$x,
-      y = spec$origin_y,
-      yend = spec$origin_y + spec$width,
-      colour = colour
-    ),
-    # Goal line 1
-    ggplot2::annotate(
-      geom = "segment",
-      x = spec$goal_line,
-      xend = spec$goal_line,
-      y = spec$origin_y,
-      yend = spec$origin_y + spec$width,
-      colour = colour
-    ),
-    # Goal line 2
-    ggplot2::annotate(
-      geom = "segment",
-      x = spec$length - spec$goal_line,
-      xend = spec$length - spec$goal_line,
-      y = spec$origin_y,
-      yend = spec$origin_y + spec$width,
-      colour = colour
-    ),
-    # 22-meters line 1
-    ggplot2::annotate(
-      geom = "segment",
-      x = spec$goal_line + 22,
-      xend = spec$goal_line + 22,
-      y = spec$origin_y,
-      yend = spec$origin_y + spec$width,
-      colour = colour
-    ),
-    # 22-meters line 2
-    ggplot2::annotate(
-      geom = "segment",
-      x = spec$length - spec$goal_line - 22,
-      xend = spec$length - spec$goal_line - 22,
-      y = spec$origin_y,
-      yend = spec$origin_y + spec$width,
       colour = colour
     )
   )
