@@ -15,11 +15,6 @@
 #'  \item{"length"}{The length of the pitch from one dead-ball to the other (x axis)}
 #'  \item{"width"}{The width of the pitch from touchline to the other (y axis)}
 #'  \item{"goal_line"}{The distance from the dead-ball line to the goal line}
-#'  \item{"line_05m"}{The distance from the dead-ball line to the 5-metre line}
-#'  \item{"line_22m"}{The distance from the dead-ball line to the 22-metre line}
-#'  \item{"line_10m"}{The distance from the dead-ball line to the 10-metre line}
-#'  \item{"touchline_5m"}{5 m from the touchline}
-#'  \item{"touchline_15m"}{15 m from the touchline}
 #'  \item{"goal_width"}{The distance from one goal post to the other}
 #'  \item{"origin_x"}{The minimum x coordinate of the pitch}
 #'  \item{"origin_y"}{The minimum y coordinate of the pitch}
@@ -34,11 +29,6 @@
     length = 112,
     width = 70,
     goal_line = 6,
-    line_05m = 11,
-    line_22m = 28,
-    line_10m = 46,
-    touchline_5m = 5,
-    touchline_15m = 15,
     goal_width = 5.6,
     origin_x = 0,
     origin_y = 0

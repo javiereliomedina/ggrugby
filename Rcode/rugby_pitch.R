@@ -110,8 +110,8 @@
       # 22-meters line 1
       ggplot2::annotate(
         geom = "segment",
-        x = spec$line_22m,
-        xend = spec$line_22m,
+        x = spec$goal_line + 22,
+        xend = spec$goal_line + 22,
         y = spec$origin_y,
         yend = spec$origin_y + spec$width,
         colour = colour
@@ -119,8 +119,8 @@
       # 22-meters line 2
       ggplot2::annotate(
         geom = "segment",
-        x = spec$length - spec$line_22m,
-        xend = spec$length - spec$line_22m,
+        x = spec$length - spec$goal_line - 22,
+        xend = spec$length - spec$goal_line - 22,
         y = spec$origin_y,
         yend = spec$origin_y + spec$width,
         colour = colour
