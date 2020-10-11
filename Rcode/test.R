@@ -18,6 +18,6 @@ team_1 <- tribble(~ID, ~x, ~y,
                   15, 25, 50)
                                                  
 ggplot() +
-  annotate_pitch() +
+  rugby_pitch() +
   theme_pitch() +
   geom_point(data = team_1, aes(x = x, y = y), col = "red") 
