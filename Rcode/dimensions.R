@@ -26,7 +26,7 @@
 #'  }
 
   pitch_worldrugby <- list(
-    length = 112,
+    length = 100,
     width = 70,
     dead_line = 6,
     goal_width = 5.6,
