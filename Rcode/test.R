@@ -19,5 +19,6 @@ team_1 <- tribble(~ID, ~x, ~y,
                                                  
 ggplot() +
   rugby_pitch() +
-  theme_pitch() +
+  theme_minimal() + 
+  labs(title = "Rugby ") +
   geom_point(data = team_1, aes(x = x, y = y), col = "red") 

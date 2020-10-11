@@ -14,7 +14,7 @@
 #' \itemize{
 #'  \item{"length"}{The length of the pitch from one dead-ball to the other (x axis)}
 #'  \item{"width"}{The width of the pitch from touchline to the other (y axis)}
-#'  \item{"goal_line"}{The distance from the dead-ball line to the goal line}
+#'  \item{"dead_line"}{The distance from the dead-ball line to the goal line}
 #'  \item{"goal_width"}{The distance from one goal post to the other}
 #'  \item{"origin_x"}{The minimum x coordinate of the pitch}
 #'  \item{"origin_y"}{The minimum y coordinate of the pitch}
@@ -28,7 +28,7 @@
   pitch_worldrugby <- list(
     length = 112,
     width = 70,
-    goal_line = 6,
+    dead_line = 6,
     goal_width = 5.6,
     origin_x = 0,
     origin_y = 0
