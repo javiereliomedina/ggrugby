@@ -2,7 +2,7 @@
 #'
 #' @description The coordinate system used to generate pitch markings 
 #' It can be customised by supplying a pitch specification to the `dimensions`
-#' argument of `annotate_pitch`.
+#' argument of `rugby_pitch`.
 #'
 #' ggrugby provide the pitch specification of World Rugby by default.
 #' (https://laws.worldrugby.org/?law=1&language=EN)
@@ -12,8 +12,8 @@
 #' coordinate system. The required dimensions are:
 #'
 #' \itemize{
-#'  \item{"length"}{The length of the pitch from one dead-ball to the other (x axis)}
-#'  \item{"width"}{The width of the pitch from touchline to the other (y axis)}
+#'  \item{"length"}{The length of the pitch from one goal line to the other (x axis)}
+#'  \item{"width"}{The width of the pitch from one touchline to the other (y axis)}
 #'  \item{"dead_line"}{The distance from the dead-ball line to the goal line}
 #'  \item{"goal_width"}{The distance from one goal post to the other}
 #'  \item{"origin_x"}{The minimum x coordinate of the pitch}
