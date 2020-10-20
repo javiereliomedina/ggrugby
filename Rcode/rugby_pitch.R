@@ -1,9 +1,9 @@
-#' Adds soccer pitch markings as a layer for use in a ggplot plot.
+#' Adds rugby pitch markings as a layer for use in a ggplot plot.
 #'
 #' @param colour Colour of pitch outline.
 #' @param fill Colour of pitch fill
 #' @param limits Whether to adjust the plot limits to display the whole pitch.
-#' @param dimensions A list containing the pitch dimensions to draw. See `help(pitch_opta)`.
+#' @param dimensions A list containing the pitch dimensions to draw.
 #'
 #' @return list of ggplot geoms to be added to a ggplot plot
 #'
@@ -22,11 +22,7 @@
 rugby_pitch <- function(colour   = "white",
                         fill     = "#7fc47f",
                         limits   = TRUE,
-                        dimensions = pitch_worldrugby) {
-  
-  # NOTE: could parameterise the whole function by the list of layer-creation
-  #       functions it uses. We could then open up the API for user-defined pitch
-  #       elements 
+                        dimensions = pitch_worldrugby) {    
   marking_layers <- unlist(list(
     annotate_base_pitch(colour, fill, dimensions),
     annotate_touchlines(colour, fill, dimensions),
