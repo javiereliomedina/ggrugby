@@ -8,21 +8,55 @@
 #' @return list of ggplot geoms to be added to a ggplot plot
 #'
 #' @examples
-#' library(ggplot2)
+#' library(tidyverse)
+#' library(ggrugby)
 #'
-#' shots_data <- data.frame(x = c(90, 85, 82, 78, 83),
-#'                          y = c(43, 40, 52, 56, 44))
+#' team_1 <- tribble(~ID, ~x, ~y,
+#'                   1,  49, 45,
+#'                   2,  49, 44,
+#'                   3,  49, 43,
+#'                   4,  48, 44.5,
+#'                   5,  48, 43.5,
+#'                   6,  48, 42.5,
+#'                   7,  48, 45.5,
+#'                   8,  47, 44,
+#'                   9,  48, 47,
+#'                   10, 39, 35,
+#'                   11, 20, 5,
+#'                   12, 35, 25,
+#'                   13, 30, 15,
+#'                   14, 35, 60,
+#'                   15, 25, 50)
 #'
-#' ggplot(shots_data, aes(x = x, y = y)) +
-#'   annotate_pitch() +
-#'   geom_point()
+#' team_2 <- tribble(~ID, ~x, ~y,
+#'                   1,  50, 45,
+#'                   2,  50, 44,
+#'                   3,  50, 43,
+#'                   4,  51, 44.5,
+#'                   5,  51, 43.5,
+#'                   6,  51, 42.5,
+#'                   7,  51, 45.5,
+#'                   8,  52, 44,
+#'                   9,  51, 47,
+#'                   10, 62, 37,
+#'                   11, 80, 12,
+#'                   12, 63, 28,
+#'                   13, 65, 20,
+#'                   14, 62, 57,
+#'                   15, 80, 45)
+#' ggplot() +
+#'   rugby_pitch() +
+#'   theme_minimal() +
+#'   labs(title = "Rugby pitch") +
+#'   geom_point(data = team_1, aes(x = x, y = y), col = "red") +
+#'   geom_point(data = team_2, aes(x = x, y = y), col = "blue")
 #'
 #' @export
 
 rugby_pitch <- function(colour   = "white",
                         fill     = "#7fc47f",
                         limits   = TRUE,
-                        dimensions = pitch_worldrugby) {    
+                        dimensions = pitch_worldrugby) {
   marking_layers <- unlist(list(
     annotate_base_pitch(colour, fill, dimensions),
     annotate_touchlines(colour, fill, dimensions),
@@ -36,7 +70,7 @@ rugby_pitch <- function(colour   = "white",
 
 annotate_base_pitch <- function(colour, fill, spec) {
   midpoint <- pitch_center(spec)
-  
+
   list(
     # Field
     ggplot2::annotate(
@@ -48,7 +82,7 @@ annotate_base_pitch <- function(colour, fill, spec) {
       colour = colour,
       fill = fill
     ),
-    # Lines 
+    # Lines
     ggplot2::annotate(
       geom = "segment",
       x = c(spec$origin_x,
@@ -80,7 +114,7 @@ annotate_base_pitch <- function(colour, fill, spec) {
 
 annotate_inside_lines <- function(colour, fill, spec) {
   midpoint <- pitch_center(spec)
-  
+
   list(
     # 5-meters line 1
     ggplot2::annotate(
@@ -158,13 +192,13 @@ annotate_inside_lines <- function(colour, fill, spec) {
                spec$width - 16),
       colour = colour
     )
-    
+
   )
 }
 
 annotate_touchlines <- function(colour, fill, spec) {
   midpoint <- pitch_center(spec)
-  
+
   list(
     # 5-meters line 1
     ggplot2::annotate(
@@ -204,7 +238,7 @@ annotate_touchlines <- function(colour, fill, spec) {
                midpoint$x + 11,
                spec$length - spec$origin_x - 23,
                spec$length - spec$origin_x - 7),
-      
+
       y = rep(spec$origin_y + 15, 7),
       yend = rep(spec$origin_y + 15, 7),
       colour = colour
@@ -257,10 +291,10 @@ annotate_touchlines <- function(colour, fill, spec) {
 annotate_goal <- function(colour, fill, spec) {
   midpoint <- pitch_center(spec)
   goal_depth <- 2
-  
+
   list(
     ggplot2::annotate(
-      geom = "segment", 
+      geom = "segment",
       x = c(spec$length - spec$origin_x,
             spec$length - spec$origin_x,
             spec$length - spec$origin_x + goal_depth/2,

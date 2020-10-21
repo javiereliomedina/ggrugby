@@ -1,0 +1,16 @@
+Package: ggrugby
+Title: Plot rugby data
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Javier",
+           family = "Elío",
+           role = c("aut", "cre"),
+           email = "javiereliomedina@gmail.com",
+           comment = c(ORCID = "0000-0003-0624-2345"))
+Description: The "ggrugby" package integrates several functions for visualizing rugby data with "ggplot2".
+License: MIT
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: tidyverse
