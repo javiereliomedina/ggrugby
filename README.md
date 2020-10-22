@@ -26,8 +26,5 @@ Usage
     ggplot() +
       rugby_pitch() +
       theme_void() 
-    #> Warning: Ignoring unknown parameters: fill
-
-    #> Warning: Ignoring unknown parameters: fill
-
+    
 ![](man/figures/README-example_blank-1.png)<!-- -->

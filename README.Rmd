@@ -8,7 +8,6 @@ output:
 
 knitr::opts_chunk$set(
   collapse = TRUE,
-  warnings = FALSE,
   comment = "#>",
   fig.path = "man/figures/README-"
 )
